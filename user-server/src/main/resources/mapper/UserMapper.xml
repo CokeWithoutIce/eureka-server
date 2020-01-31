@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kelebujiabing.userserver.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.kelebujiabing.userapi.domain.User">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
+    <result column="ACCOUNTS" jdbcType="VARCHAR" property="accounts" />
+    <result column="PASSWORD" jdbcType="VARCHAR" property="password" />
+    <result column="PHONE" jdbcType="VARCHAR" property="phone" />
+    <result column="EMAIL" jdbcType="VARCHAR" property="email" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="IDCAR" jdbcType="VARCHAR" property="idcar" />
+    <result column="WeChat_NUMBER" jdbcType="VARCHAR" property="wechatNumber" />
+    <result column="ALIPAY_NUMBER" jdbcType="VARCHAR" property="alipayNumber" />
+    <result column="CREATION_TIME" jdbcType="TIMESTAMP" property="creationTime" />
+    <result column="LOGOUT" jdbcType="DECIMAL" property="logout" />
+    <result column="EXT1" jdbcType="VARCHAR" property="ext1" />
+    <result column="EXT2" jdbcType="VARCHAR" property="ext2" />
+    <result column="EXT3" jdbcType="VARCHAR" property="ext3" />
+    <result column="EXT4" jdbcType="VARCHAR" property="ext4" />
+    <result column="EXT5" jdbcType="VARCHAR" property="ext5" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from USER
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" keyColumn="ID" keyProperty="id" parameterType="com.kelebujiabing.userapi.domain.User" useGeneratedKeys="true">
+    insert into USER (ID,USER_NAME, ACCOUNTS, PASSWORD,
+      PHONE, EMAIL, NAME, 
+      IDCAR, WeChat_NUMBER, ALIPAY_NUMBER, 
+      CREATION_TIME, LOGOUT, EXT1, 
+      EXT2, EXT3, EXT4, EXT5
+      )
+    values ( sys_guid(),#{userName,jdbcType=VARCHAR}, #{accounts,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+      #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{idcar,jdbcType=VARCHAR}, #{wechatNumber,jdbcType=VARCHAR}, #{alipayNumber,jdbcType=VARCHAR}, SYSDATE, #{logout,jdbcType=DECIMAL}, #{ext1,jdbcType=VARCHAR},
+      #{ext2,jdbcType=VARCHAR}, #{ext3,jdbcType=VARCHAR}, #{ext4,jdbcType=VARCHAR}, #{ext5,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.kelebujiabing.userapi.domain.User">
+    update USER
+    set USER_NAME = #{userName,jdbcType=VARCHAR},
+      ACCOUNTS = #{accounts,jdbcType=VARCHAR},
+      PASSWORD = #{password,jdbcType=VARCHAR},
+      PHONE = #{phone,jdbcType=VARCHAR},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      NAME = #{name,jdbcType=VARCHAR},
+      IDCAR = #{idcar,jdbcType=VARCHAR},
+      WeChat_NUMBER = #{wechatNumber,jdbcType=VARCHAR},
+      ALIPAY_NUMBER = #{alipayNumber,jdbcType=VARCHAR},
+      CREATION_TIME = #{creationTime,jdbcType=TIMESTAMP},
+      LOGOUT = #{logout,jdbcType=DECIMAL},
+      EXT1 = #{ext1,jdbcType=VARCHAR},
+      EXT2 = #{ext2,jdbcType=VARCHAR},
+      EXT3 = #{ext3,jdbcType=VARCHAR},
+      EXT4 = #{ext4,jdbcType=VARCHAR},
+      EXT5 = #{ext5,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select ID, USER_NAME, ACCOUNTS, PASSWORD, PHONE, EMAIL, NAME, IDCAR, WeChat_NUMBER, 
+    ALIPAY_NUMBER, CREATION_TIME, LOGOUT, EXT1, EXT2, EXT3, EXT4, EXT5
+    from USER
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select ID, USER_NAME, ACCOUNTS, PASSWORD, PHONE, EMAIL, NAME, IDCAR, WeChat_NUMBER, 
+    ALIPAY_NUMBER, CREATION_TIME, LOGOUT, EXT1, EXT2, EXT3, EXT4, EXT5
+    from USER
+  </select>
+    <select id="selectByPhone" resultType="java.lang.Integer">
+      select  count(ID) FROM  USER WHERE  PHONE  = #{phone} and  LOGOUT = 2
+    </select>
+</mapper>

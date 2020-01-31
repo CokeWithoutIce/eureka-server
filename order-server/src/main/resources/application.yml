@@ -1,0 +1,66 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+server:
+  port: 8091
+
+spring:
+  application:
+    name: order-server
+    #zipkin的服务地地址
+    zipkin:
+      base-url: http://localhost:9411
+    sleuth:
+      sampler:
+        probability: 1
+#
+#PRODUCT-SERVER:
+#  ribbon:
+##    负载均衡调用方式  现在为随机
+#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+#    #当前服务器调用失败后调用几次(/不包含第一次)
+#    MaxAutoRetries: 0
+#    #当前服务器调用师失败后,继续调用几台服务器(不包含第一台,如果想程序调用一次就设置为0)
+#    MaxAutRetriesNextServer: 1
+
+
+
+
+#设置连接时间和读取时间
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 3000
+        readTimeout: 3000
+#是否开启兜底数据
+  httpclient:
+    enabled: true
+
+#当启动 hystrix的线程池模式的时候 feign 的超时时间会不起作用
+
+##关闭超时
+#hystrix:
+#  command:
+#    default:
+#      execurtion:
+#        timeout:
+#          enabled: false
+#设置 hystrix的超时时间
+#hystrix:
+#  command:
+#    default:
+#      execurtion:
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds: 3000
+
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        #去除受保护的地址 现在为全部去除
+        include: "*"

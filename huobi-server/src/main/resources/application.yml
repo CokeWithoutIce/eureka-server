@@ -1,0 +1,74 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+server:
+  port: 8093
+
+spring:
+  data:
+    elasticsearch:
+      cluster-nodes: 192.168.60.12:9300
+      cluster-name: elasticsearch
+
+  application:
+    name: huobi-server
+    #zipkin�ķ���ص�ַ
+    zipkin:
+      base-url: http://localhost:9411
+    sleuth:
+      sampler:
+        probability: 1
+
+
+
+#
+#PRODUCT-SERVER:
+#  ribbon:
+##    ���ؾ�����÷�ʽ  ����Ϊ���
+#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+#    #��ǰ����������ʧ�ܺ���ü���(/��������һ��)
+#    MaxAutoRetries: 0
+#    #��ǰ����������ʦʧ�ܺ�,�������ü�̨������(��������һ̨,�����������һ�ξ�����Ϊ0)
+#    MaxAutRetriesNextServer: 1
+
+
+
+
+#��������ʱ��Ͷ�ȡʱ��
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 3000
+        readTimeout: 3000
+  #�Ƿ�����������
+  httpclient:
+    enabled: true
+
+#������ hystrix���̳߳�ģʽ��ʱ�� feign �ĳ�ʱʱ��᲻������
+
+##�رճ�ʱ
+#hystrix:
+#  command:
+#    default:
+#      execurtion:
+#        timeout:
+#          enabled: false
+#���� hystrix�ĳ�ʱʱ��
+#hystrix:
+#  command:
+#    default:
+#      execurtion:
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds: 3000
+
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        #ȥ���ܱ����ĵ�ַ ����Ϊȫ��ȥ��
+        include: "*"
