@@ -17,7 +17,7 @@
     <properties>
         <java.version>1.8</java.version>
         <spring-cloud.version>Hoxton.RELEASE</spring-cloud.version>
-        <com.squareup.retrofit2.version>2.3.0</com.squareup.retrofit2.version>
+        <com.squareup.retrofit2.version>2.7.1</com.squareup.retrofit2.version>
     </properties>
 
     <dependencies>
